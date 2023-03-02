@@ -41,7 +41,7 @@ type ImagesData = {
 export default function Home() {
   const [text, setText] = useState("");
   const [story, setStory] = useState<StoryData>();
-  const [images, setImages] = useState<ImagesData>([]);
+  const [images, setImages] = useState<ImagesData>();
   const [isLoading, setIsLoading] = useState(false);
 
   async function onSubmit(event: any) {
@@ -152,15 +152,16 @@ export default function Home() {
                 <Grid key={index} item xs={12} sm={6}>
                   <Box style={{ flex: 1 }}>
                     <BodyText sx={{ marginBottom: "16px" }}>{item}</BodyText>
-                    {images?.images?.length > index && (
-                      <Box>
-                        <img
-                          style={{ width: "100%", borderRadius: 6 }}
-                          key={index}
-                          src={`${images?.images[index]}`}
-                        />
-                      </Box>
-                    )}
+                    {images?.images?.length ??
+                      ([].length > index && (
+                        <Box>
+                          <img
+                            style={{ width: "100%", borderRadius: 6 }}
+                            key={index}
+                            src={`${images?.images[index]}`}
+                          />
+                        </Box>
+                      ))}
                   </Box>
                 </Grid>
               ))}
