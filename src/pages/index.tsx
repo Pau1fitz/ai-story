@@ -89,7 +89,7 @@ export default function Home() {
   };
 
   const splitStory = story?.text
-    .replace(/^\./, "")
+    .replace(/^[^A-Za-z]+/, "")
     .split(/\r?\n/)
     .filter((item: any) => item !== ", " && Boolean(item));
 

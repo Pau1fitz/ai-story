@@ -35,8 +35,8 @@ export default async function handler(
   try {
     const response = await openai.createImage({
       prompt: `${storyline} happy modern children's illustration 3d style`,
-      n: 2,
-      size: "512x512",
+      n: 4,
+      size: "256x256",
     });
 
     const imagesResponse = await response.data.data;
