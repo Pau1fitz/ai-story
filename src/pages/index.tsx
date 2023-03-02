@@ -36,9 +36,7 @@ type Data = {
 };
 
 export default function Home() {
-  const [text, setText] = useState(
-    "Stefan, Katie and their little Grayson went to the zoo and saw many animals"
-  );
+  const [text, setText] = useState("");
   const [story, setStory] = useState<Data>();
   const [isLoading, setIsLoading] = useState(false);
 
