@@ -101,7 +101,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {isLoading && (
+      {isLoading ? (
         <Main
           style={{
             display: "flex",
@@ -111,49 +111,48 @@ export default function Home() {
         >
           <CircularProgress sx={{ color: "#000" }} />
         </Main>
-      )}
-      <Main>
-        {!story ? (
-          <Container maxWidth="lg" sx={{ height: "100vh" }}>
-            <HeaderText sx={{ marginBottom: "16px" }}>StoryAI</HeaderText>
-            <Box
-              sx={{
-                display: "flex",
-                width: "100%",
-                maxWidth: "450px",
-                margin: "1rem 0",
-              }}
-            >
-              <BlackBorderTextField
-                sx={{ width: "100%" }}
-                color="secondary"
-                rows={4}
-                label="Story Description"
-                id="outlined-textarea"
-                placeholder="Story description should go here... Stefan, Katie and their little Grayson went to the zoo and saw many animals"
-                multiline
-                onChange={handleInput}
-              />
-            </Box>
+      ) : (
+        <Main>
+          {!story ? (
+            <Container maxWidth="lg" sx={{ height: "100vh" }}>
+              <HeaderText sx={{ marginBottom: "16px" }}>StoryAI</HeaderText>
+              <Box
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  maxWidth: "450px",
+                  margin: "1rem 0",
+                }}
+              >
+                <BlackBorderTextField
+                  sx={{ width: "100%" }}
+                  color="secondary"
+                  rows={4}
+                  label="Story Description"
+                  id="outlined-textarea"
+                  placeholder="Story description should go here... Stefan, Katie and their little Grayson went to the zoo and saw many animals"
+                  multiline
+                  onChange={handleInput}
+                />
+              </Box>
 
-            <Button
-              sx={{ background: "#000" }}
-              variant="contained"
-              onClick={onSubmit}
-            >
-              Create story
-            </Button>
-          </Container>
-        ) : (
-          <Container maxWidth="lg">
-            <HeaderText sx={{ marginBottom: "16px" }}>StoryAI</HeaderText>
-            <Grid container spacing={2}>
-              {splitStory?.map((item: string, index: number) => (
-                <Grid key={index} item xs={12} sm={6}>
-                  <Box style={{ flex: 1 }}>
-                    <BodyText sx={{ marginBottom: "16px" }}>{item}</BodyText>
-                    {images?.images?.length ??
-                      ([].length > index && (
+              <Button
+                sx={{ background: "#000" }}
+                variant="contained"
+                onClick={onSubmit}
+              >
+                Create story
+              </Button>
+            </Container>
+          ) : (
+            <Container maxWidth="lg">
+              <HeaderText sx={{ marginBottom: "16px" }}>StoryAI</HeaderText>
+              <Grid container spacing={2}>
+                {splitStory?.map((item: string, index: number) => (
+                  <Grid key={index} item xs={12} sm={6}>
+                    <Box style={{ flex: 1 }}>
+                      <BodyText sx={{ marginBottom: "16px" }}>{item}</BodyText>
+                      {images?.images?.length! > index && (
                         <Box>
                           <img
                             style={{ width: "100%", borderRadius: 6 }}
@@ -161,14 +160,15 @@ export default function Home() {
                             src={`${images?.images[index]}`}
                           />
                         </Box>
-                      ))}
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
-          </Container>
-        )}
-      </Main>
+                      )}
+                    </Box>
+                  </Grid>
+                ))}
+              </Grid>
+            </Container>
+          )}
+        </Main>
+      )}
     </>
   );
 }
