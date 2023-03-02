@@ -112,8 +112,8 @@ export default function Home() {
                 sx={{ width: "100%" }}
                 color="secondary"
                 rows={4}
-                id="outlined-textarea"
                 label="Story Description"
+                id="outlined-textarea"
                 placeholder="Story description should go here... Stefan, Katie and their little Grayson went to the zoo and saw many animals"
                 multiline
                 onChange={handleInput}
