@@ -133,7 +133,7 @@ export default function Home() {
             <HeaderText sx={{ marginBottom: "16px" }}>StoryAI</HeaderText>
             <Grid container spacing={2}>
               {splitStory?.map((item: string, index: number) => (
-                <Grid item xs={12} sm={6}>
+                <Grid key={index} item xs={12} sm={6}>
                   <Box style={{ flex: 1 }}>
                     <BodyText sx={{ marginBottom: "16px" }}>{item}</BodyText>
                     {story?.images.length > index && (
