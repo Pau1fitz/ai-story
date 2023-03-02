@@ -30,21 +30,25 @@ const Main = styled.main`
   background: linear-gradient(45deg, #aaffa9, #11ffbd);
 `;
 
-type Data = {
+type StoryData = {
   text: string;
+};
+
+type ImagesData = {
   images: [string];
 };
 
 export default function Home() {
   const [text, setText] = useState("");
-  const [story, setStory] = useState<Data>();
+  const [story, setStory] = useState<StoryData>();
+  const [images, setImages] = useState<ImagesData>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   async function onSubmit(event: any) {
     event.preventDefault();
     try {
       setIsLoading(true);
-      const response = await fetch(`api/story`, {
+      const storyResponse = await fetch(`api/story`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,15 +56,27 @@ export default function Home() {
         body: JSON.stringify({ text }),
       });
 
-      const data = await response.json();
-      if (response.status !== 200) {
+      const imagesResponse = await fetch(`api/images`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text }),
+      });
+
+      const storyResponseData = await storyResponse.json();
+      const imagesResponseData = await imagesResponse.json();
+
+      if (storyResponse.status !== 200 || imagesResponse.status !== 200) {
         throw (
-          data.error ||
-          new Error(`Request failed with status ${response.status}`)
+          storyResponseData.error ||
+          imagesResponseData.error ||
+          new Error(`Request failed with status ${storyResponse.status}`)
         );
       }
 
-      setStory(data.result);
+      setStory(storyResponseData.result);
+      setImages(imagesResponseData.result);
       setText("");
       setIsLoading(false);
     } catch (error) {
@@ -136,12 +152,12 @@ export default function Home() {
                 <Grid key={index} item xs={12} sm={6}>
                   <Box style={{ flex: 1 }}>
                     <BodyText sx={{ marginBottom: "16px" }}>{item}</BodyText>
-                    {story?.images.length > index && (
+                    {images?.images?.length > index && (
                       <Box>
                         <img
                           style={{ width: "100%", borderRadius: 6 }}
                           key={index}
-                          src={`${story?.images[index]}`}
+                          src={`${images?.images[index]}`}
                         />
                       </Box>
                     )}

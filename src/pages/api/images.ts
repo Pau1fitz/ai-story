@@ -33,15 +33,17 @@ export default async function handler(
   }
 
   try {
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: `Write a short children's story ${storyline} that is a 2 minute read`,
-      temperature: 2,
-      max_tokens: 100,
+    const response = await openai.createImage({
+      prompt: `${storyline} happy modern children's illustration 3d style`,
+      n: 2,
+      size: "512x512",
     });
 
+    const imagesResponse = await response.data.data;
+    const images = imagesResponse.map((image) => image.url);
+
     res.status(200).json({
-      result: { text: completion.data.choices[0].text },
+      result: { images },
     });
   } catch (error: any) {
     // Consider adjusting the error handling logic for your use case
