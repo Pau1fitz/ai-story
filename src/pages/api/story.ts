@@ -34,7 +34,7 @@ export default async function handler(
 
   try {
     const completion = await openai.createCompletion({
-      model: "gpt-3.5-turbo",
+      model: "text-davinci-003",
       prompt: `Write a short children's story ${storyline} that is a 2 minute read`,
       temperature: 2,
       max_tokens: 1000,
